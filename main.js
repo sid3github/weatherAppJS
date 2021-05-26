@@ -8,8 +8,18 @@ let forecastDesc = document.querySelector(".forecast__description");
 
 button.addEventListener("click", (e) => {
   e.preventDefault();
+
   let tempValue;
   let inputValue = input.value;
+  // validate if input is empty
+  if (inputValue == "") {
+    alert("Please Enter A City Name!");
+  }
+  let splitVal = inputValue.split("");
+  let upperCaseVal = splitVal[0].toUpperCase();
+  splitVal[0] = upperCaseVal;
+  inputValue = splitVal.join("");
+
   let key = "d5b46d2bbe500860bf2bd3ad63f3c6fa";
   fetch(
     "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -20,13 +30,15 @@ button.addEventListener("click", (e) => {
     .then((response) => response.json())
     .then((data) =>
       data.name != inputValue
-        ? alert("City Name Invalid!, Please Type Correct City Name.")
+        ? alert(
+            "City Name Invalid!, Please Type Correct City Name Or Type City Name All In Lower Case."
+          )
         : show(data)
     );
 
   const show = (data) => {
     tempValue = Math.floor(data.main.temp - 273.15);
-    cityName.innerHTML = inputValue;
+    cityName.innerHTML = inputValue.toUpperCase();
     cityTemp.innerHTML = tempValue + " Deg";
     forecastDesc.innerHTML = data.weather[0].description;
     input.value = "";
@@ -43,3 +55,4 @@ button.addEventListener("click", (e) => {
     button.style.borderColor = "#000000";
   };
 });
+// collect all weather descriptions in an array, group similar names, and depending on those groups give different background color.

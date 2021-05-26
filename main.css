@@ -6,6 +6,7 @@
 body {
   background-color: #dadce0;
   font-family: "Roboto Mono", monospace;
+  transition: ease-in 0.5s;
 }
 
 .main__container {
